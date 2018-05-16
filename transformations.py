@@ -75,3 +75,68 @@ def time_prepare(x):
     ret = (ret - time_np_arr_min) / (time_np_arr_max - time_np_arr_min)
     ret[ret == np.inf] = replace_with
     return ret
+
+def oneHotEncode_EventType(x):
+    """
+    This function one hot encodes the input for the event types cascade, tracks, doubel-bang
+    """
+    # define universe of possible input values
+    onehot_encoded = []
+    # universe has to defined depending on the problem, in this implementation integers are neccesary
+    universe = [1, 2, 3]
+    for i in range(len(universe)):
+        if x == universe[i]:
+            value = 1.
+        else:
+            value = 0.
+        onehot_encoded.append(value)
+    return onehot_encoded
+
+def oneHotEncode_noDoubleBang(x):
+    """
+    This function one hot encodes the input
+    """
+    # define universe of possible input values
+    onehot_encoded = []
+    # universe has to defined depending on the problem, in this implementation integers are neccesary
+    universe = [1, 2, 3]
+    for i in range(len(universe)):
+        if x == universe[i]:
+            value = 1.
+        else:
+            value = 0.
+        onehot_encoded.append(value)
+    if onehot_encoded == [0., 0., 1.]:
+        onehot_encoded = [1.0, 0.0, 0.0]
+    return onehot_encoded[:-1]
+
+def log_of_sum(x):
+    return np.log10(np.sum(x)+0.0001)
+
+def max_min_delta_log(x):
+    return np.log10(np.max(x)-np.min(x))
+
+
+def oneHotEncode_01(x):
+    """
+    This function one hot encodes the input for a binary label 
+    """
+    # define universe of possible input values
+    onehot_encoded = []
+    # universe has to defined depending on the problem, in this implementation integers are neccesary
+    universe = [0, 1]
+    for i in range(len(universe)):
+        if x == universe[i]:
+            value = 1.
+        else:
+            value = 0.
+        onehot_encoded.append(value)
+    return onehot_encoded
+
+
+
+
+
+#def time_interval_0.1_to_0.9(x):
+#    interval = np.percentile(x, 90)-np.percentile(x, 10)
+#    return interval
